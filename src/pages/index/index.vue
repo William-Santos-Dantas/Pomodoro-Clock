@@ -96,7 +96,7 @@ export default {
     return {
       isRunning: false,
       timerInstance: null,
-      minutes: 1,
+      minutes: 3,
       totalSeconds: 0,
       currentTimer: 0,
     };
@@ -116,8 +116,10 @@ export default {
   methods: {
     anyLess() {
       this.stop();
-      this.minutes = this.minutes - 1;
-      this.totalSeconds = this.minutes * 60;
+      if (this.minutes > 1) {
+        this.minutes = this.minutes - 1;
+        this.totalSeconds = this.minutes * 60;
+      }
     },
     most() {
       this.stop();
@@ -136,6 +138,8 @@ export default {
       var totalSeconds = this.totalSeconds;
       this.timerInstance = setInterval(() => {
         if (this.totalSeconds <= 0) {
+          this.alert();
+          this.reset();
           this.stop();
           return;
         }
@@ -151,6 +155,11 @@ export default {
       this.stop();
       this.currentTimer = 0;
       this.totalSeconds = this.minutes * 60;
+    },
+
+    alert() {
+      var audio = new Audio(require("@/assets/alert.mp3"));
+      audio.play();
     },
   },
 };
