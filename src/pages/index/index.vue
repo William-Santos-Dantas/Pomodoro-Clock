@@ -96,7 +96,7 @@ export default {
     return {
       isRunning: false,
       timerInstance: null,
-      minutes: 3,
+      minutes: 25,
       totalSeconds: 0,
       currentTimer: 0,
     };
